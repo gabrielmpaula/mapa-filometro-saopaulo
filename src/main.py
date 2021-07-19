@@ -44,4 +44,4 @@ components.html(map._repr_html_(), height=700)
 if st.button('Atualizar'):
     counter += 1
 
-create_map(data, -23.80128, -46.658112, 10)
+# create_map(data, -23.80128, -46.658112, 10)
