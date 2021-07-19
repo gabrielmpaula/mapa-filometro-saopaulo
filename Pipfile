@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+branca = "==0.3.1"
+folium = "==0.12.1"
+googlemaps = "==4.4.7"
+streamlit = "==0.84.1"
+pydeck = "*"
+pipreqs = "*"
+
+[requires]
+python_version = "3.8"
