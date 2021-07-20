@@ -121,8 +121,8 @@ def plot_map(data, legend):
     with open(geodata_path) as f:
         geodata = json.load(f)
 
-    geo_sp = (-23, -46.5)
-    map = folium.Map(geo_sp, zoom_start=7, height='100%')
+    geo_sp = (-23.62, -46.53)
+    map = folium.Map(geo_sp, zoom_start=10, height='100%')
     fig = folium.Figure(height=500)
     fig = fig.add_child(map)
 
