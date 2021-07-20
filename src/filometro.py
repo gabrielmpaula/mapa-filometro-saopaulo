@@ -6,8 +6,7 @@ import requests
 def update_data():
     url = 'https://deolhonafila.prefeitura.sp.gov.br/processadores/dados.php'
     form = {'dados': 'dados'}
-    data = requests.post(url, data=form).json()
-    return data
+    return requests.post(url, data=form).json()
 
 
 def add_categorical_legend(folium_map, title, colors, labels):
@@ -15,8 +14,8 @@ def add_categorical_legend(folium_map, title, colors, labels):
         raise ValueError("colors and labels must have the same length.")
 
     color_by_label = dict(zip(labels, colors))
-    
-    legend_categories = ""     
+
+    legend_categories = ""
     for label, color in color_by_label.items():
         legend_categories += f"<li><span style='background:{color}'></span>{label}</li>"
         
@@ -51,10 +50,8 @@ def add_categorical_legend(folium_map, title, colors, labels):
         oneTimeExecution()
         </script>
       """
-   
 
     css = """
-
     <style type='text/css'>
       .maplegend {
         z-index:9999;
@@ -107,7 +104,6 @@ def add_categorical_legend(folium_map, title, colors, labels):
     """
 
     folium_map.get_root().header.add_child(folium.Element(script + css))
-
     return folium_map
 
 
@@ -137,6 +133,6 @@ def plot_map(data):
 
     map = add_categorical_legend(map, 'Legenda',
                                 colors = colors.values(),
-                               labels = colors.keys())
+                                labels = colors.keys())
 
     return map

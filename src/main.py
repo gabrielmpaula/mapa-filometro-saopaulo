@@ -12,9 +12,11 @@ def get_data():
 
 st.write("Localização dos postos de vacinação da Covid-19 na cidade de São Paulo")
 
-data = get_data()
+
+if st.button('Atualizar'):
+    _counter += 1
 st.markdown(
-            """
+    """
     <style>
     canvas {
     max-width: 100%!important;
@@ -22,10 +24,7 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True)
+
+data = get_data()
 map = plot_map(data)
-components.html(map._repr_html_())
-
-if st.button('Atualizar'):
-    _counter += 1
-
-# create_map(data, -23.80128, -46.658112, 10)
+components.html(map._repr_html_(), height=600)
