@@ -121,8 +121,10 @@ def plot_map(data, legend):
     with open(geodata_path) as f:
         geodata = json.load(f)
 
-    geo_sp = (-23.90, -46.608112)
-    map = folium.Map(geo_sp, height=700, zoom_start=10)
+    geo_sp = (-23, -46.5)
+    map = folium.Map(geo_sp, zoom_start=7, height='100%')
+    fig = folium.Figure(height=500)
+    fig = fig.add_child(map)
 
     for item in data:
 
@@ -133,7 +135,7 @@ def plot_map(data, legend):
         folium.Marker(tuple(location), tooltip=name, popup=text, icon=folium.Icon(color=color)).add_to(map)
 
     if legend:
-        map = add_categorical_legend(map, 'Legenda',
+        map = add_categorical_legend(fig, 'Legenda',
                                     colors = colors.values(),
                                     labels = colors.keys())
 
