@@ -1,6 +1,4 @@
-from streamlit_folium import folium_static
 import streamlit as st
-import streamlit.components.v1 as components
 from filometro import update_data, plot_map, add_categorical_legend
 
 _counter = 0
