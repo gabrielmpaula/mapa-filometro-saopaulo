@@ -125,7 +125,7 @@ def plot_map(data):
         geodata = json.load(f)
 
     geo_sp = (-23.80128, -46.658112)
-    map = folium.Map(geo_sp, zoom_start=10, width=1200)
+    map = folium.Map(geo_sp, zoom_start=10)
 
     for item in data:
 

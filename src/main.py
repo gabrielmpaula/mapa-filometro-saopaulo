@@ -2,8 +2,8 @@ import streamlit as st
 import streamlit.components.v1 as components
 from filometro import update_data, plot_map
 
-
-counter = 0
+_counter = 0
+st.title('Mapa Filômetro SP')
 st.set_page_config(layout="wide")
 
 @st.cache(suppress_st_warning=True)
@@ -14,9 +14,9 @@ st.write("Localização dos postos de vacinação da Covid-19 na cidade de São 
 
 data = get_data()
 map = plot_map(data)
-components.html(map._repr_html_(), height=700)
+components.html(map._repr_html_())
 
 if st.button('Atualizar'):
-    counter += 1
+    _counter += 1
 
 # create_map(data, -23.80128, -46.658112, 10)
