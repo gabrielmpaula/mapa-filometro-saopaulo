@@ -10,6 +10,7 @@ def update_data():
 
 
 def add_categorical_legend(folium_map, title, colors, labels):
+
     if len(colors) != len(labels):
         raise ValueError("colors and labels must have the same length.")
 
@@ -107,7 +108,7 @@ def add_categorical_legend(folium_map, title, colors, labels):
     return folium_map
 
 
-def plot_map(data):
+def plot_map(data, legend):
 
     colors = {'SEM FILA': 'darkgreen',
               'FILA PEQUENA': 'beige',
@@ -120,7 +121,7 @@ def plot_map(data):
     with open(geodata_path) as f:
         geodata = json.load(f)
 
-    geo_sp = (-23.80128, -46.658112)
+    geo_sp = (-23.90, -46.608112)
     map = folium.Map(geo_sp, zoom_start=10)
 
     for item in data:
@@ -131,8 +132,9 @@ def plot_map(data):
         location = geodata[name]['location'].values()
         folium.Marker(tuple(location), tooltip=name, popup=text, icon=folium.Icon(color=color)).add_to(map)
 
-    map = add_categorical_legend(map, 'Legenda',
-                                colors = colors.values(),
-                                labels = colors.keys())
+    if legend:
+        map = add_categorical_legend(map, 'Legenda',
+                                    colors = colors.values(),
+                                    labels = colors.keys())
 
     return map
