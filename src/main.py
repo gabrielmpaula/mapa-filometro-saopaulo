@@ -13,13 +13,14 @@ def get_data():
 st.write("Localização dos postos de vacinação da Covid-19 na cidade de São Paulo")
 
 col1, col2 = st.beta_columns(2)
-
+container = st.beta_container()
 if col1.button('Atualizar'):
     _counter += 1
 legend = col2.checkbox('Legenda', value=True)
 
 data = get_data()
 map = plot_map(data, legend)
-components.html(map._repr_html_(), height=600)
-st.markdown('Criado por Gabriel Melo de Paula - [Github](http://www.github.com/gabrielmpaula/mapa-filometro-saopaulo/), [LinkedIn](https://www.linkedin.com/in/gabrielmpaula)')
-st.markdown('Dados extraídos do [Filômetro Vacina Sampa](https://deolhonafila.prefeitura.sp.gov.br/)')
+
+container.markdown(map._repr_html_(), unsafe_allow_html=True)
+st.markdown("""Dados extraídos do [Filômetro Vacina Sampa](https://deolhonafila.prefeitura.sp.gov.br/)   
+            Código disponível em: [Github](http://www.github.com/gabrielmpaula/mapa-filometro-saopaulo/)""")
