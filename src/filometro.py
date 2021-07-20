@@ -108,7 +108,7 @@ def add_categorical_legend(folium_map, title, colors, labels):
     return folium_map
 
 
-def plot_map(data, legend):
+def plot_map(data):
 
     colors = {'SEM FILA': 'darkgreen',
               'FILA PEQUENA': 'beige',
@@ -122,9 +122,8 @@ def plot_map(data, legend):
         geodata = json.load(f)
 
     geo_sp = (-23.62, -46.53)
-    map = folium.Map(geo_sp, zoom_start=10, height='100%')
+    m = folium.Map(geo_sp, zoom_start=10, height='100%')
     fig = folium.Figure(height=500)
-    fig = fig.add_child(map)
 
     for item in data:
 
@@ -132,11 +131,15 @@ def plot_map(data, legend):
         color = colors[item['status_fila']]
         text = 'Atualização:\n' + item['data_hora']
         location = geodata[name]['location'].values()
-        folium.Marker(tuple(location), tooltip=name, popup=text, icon=folium.Icon(color=color)).add_to(map)
+        folium.Marker(tuple(location), tooltip=name, popup=text, icon=folium.Icon(color=color)).add_to(m)
 
-    if legend:
-        map = add_categorical_legend(fig, 'Legenda',
-                                    colors = colors.values(),
-                                    labels = colors.keys())
+    
+    fig = fig.add_child(m)
+    map_clean = fig._repr_html_()
 
-    return map
+    fig_leg = add_categorical_legend(fig, 'Legenda', 
+                                 colors = colors.values(),
+                                 labels = colors.keys())
+    map_leg = fig_leg._repr_html_()
+
+    return map_clean, map_leg
