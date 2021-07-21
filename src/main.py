@@ -5,16 +5,15 @@ from filometro import update_data, plot_map, add_categorical_legend
 
 st.set_page_config(layout="wide", page_title='Mapa Filometrô SP', page_icon=':syringe:')
 st.title('Mapa Filômetro SP')
-counter = 0
 
 @st.cache(ttl=300, suppress_st_warning=True)
-def get_data(counter):
+def get_data():
     counter = 0
     data = update_data()
     map_clean, map_leg = plot_map(data)
     return map_clean, map_leg, datetime.now()
 
-map_clean, map_leg, update_time = get_data(counter)
+map_clean, map_leg, update_time = get_data()
 
 st.write("Localização dos postos de vacinação da Covid-19 na cidade de São Paulo")
 
@@ -24,7 +23,7 @@ st.markdown("""Dados extraídos do [Filômetro Vacina Sampa](https://deolhonafil
 
 col1, col2, col3 = st.beta_columns(3)
 if col1.button('Atualizar'):
-    counter += 1
+    st.caching.cache_clear()
 legend = col2.checkbox('Legenda', value=True)
 col3.markdown(f'Última atualização {update_time.strftime("%d-%m-%Y %H:%M:%S")}')
 
