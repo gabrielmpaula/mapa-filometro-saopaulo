@@ -14,7 +14,7 @@ def get_data(counter):
     map_clean, map_leg = plot_map(data)
     return map_clean, map_leg, datetime.now()
 
-map_clean, map_leg, update_time = get_data(_counter)
+map_clean, map_leg, update_time = get_data(counter)
 
 st.write("Localização dos postos de vacinação da Covid-19 na cidade de São Paulo")
 
