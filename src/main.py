@@ -10,7 +10,7 @@ _counter = 0
 def get_data(_counter):
     data = update_data()
     map_clean, map_leg = plot_map(data)
-    return map_clean, map_leg, datetime.now().date
+    return map_clean, map_leg, datetime.now()
 
 map_clean, map_leg, update_time = get_data(_counter)
 
