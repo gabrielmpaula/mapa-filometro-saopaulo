@@ -1,7 +1,9 @@
+import pytz
 import streamlit as st
-from datetime import datetime
+from datetime import datetime, timedelta
 from filometro import update_data, plot_map, add_categorical_legend
 
+tz = pytz.timezone('America/Sao_Paulo')
 
 st.set_page_config(layout="wide", page_title='Mapa Filometrô SP', page_icon=':syringe:')
 st.title('Mapa Filômetro SP')
@@ -11,7 +13,8 @@ def get_data():
     counter = 0
     data = update_data()
     map_clean, map_leg = plot_map(data)
-    return map_clean, map_leg, datetime.now()
+    brt_time = tz.localize(datetime.now())
+    return map_clean, map_leg, brt_time
 
 map_clean, map_leg, update_time = get_data()
 
@@ -23,7 +26,7 @@ st.markdown("""Dados extraídos do [Filômetro Vacina Sampa](https://deolhonafil
 
 col1, col2, col3 = st.beta_columns(3)
 if col1.button('Atualizar'):
-    st.caching.cache_clear()
+    st.caching.clear_cache()
 legend = col2.checkbox('Legenda', value=True)
 col3.markdown(f'Última atualização {update_time.strftime("%d-%m-%Y %H:%M:%S")}')
 
