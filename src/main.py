@@ -3,17 +3,17 @@ import streamlit as st
 from datetime import datetime, timedelta
 from filometro import update_data, plot_map, add_categorical_legend
 
-tz = pytz.timezone('America/Sao_Paulo')
+brtz = pytz.timezone('America/Sao_Paulo')
 
 st.set_page_config(layout="wide", page_title='Mapa Filometrô SP', page_icon=':syringe:')
 st.title('Mapa Filômetro SP')
 
-@st.cache(ttl=300, suppress_st_warning=True)
+@st.cache(ttl=300, suppress_st_warning=True, show_spinner=False)
 def get_data():
     counter = 0
     data = update_data()
     map_clean, map_leg = plot_map(data)
-    brt_time = tz.localize(datetime.now())
+    brt_time = datetime.now().astimezone(brtz)
     return map_clean, map_leg, brt_time
 
 map_clean, map_leg, update_time = get_data()
