@@ -1,3 +1,7 @@
-streamlit==0.84.1
+pytz==2021.1
 requests==2.26.0
+streamlit==0.84.1
+googlemaps==4.4.7
 folium==0.12.1
+tqdm==4.61.2
+python-dotenv==0.19.0
