@@ -12,6 +12,8 @@ googlemaps = "==4.4.7"
 streamlit = "==0.84.1"
 pydeck = "*"
 pipreqs = "*"
+tqdm = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"

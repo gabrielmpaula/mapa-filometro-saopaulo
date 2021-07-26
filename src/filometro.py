@@ -129,10 +129,12 @@ def plot_map(data):
 
         name = item.get('equipamento')
         color = colors[item['status_fila']]
-        location = geodata[name]['location'].values()
-        tooltip_text = name + ' | ' + item.get('tipo_posto')
-        popup_text = 'Atualização:\n' + item['data_hora']
-        folium.Marker(tuple(location), tooltip=tooltip_text, popup=popup_text, icon=folium.Icon(color=color)).add_to(m)
+        place = geodata.get(name)
+        if place:
+          location = place['location'].values()
+          tooltip_text = name + ' | ' + item.get('tipo_posto')
+          popup_text = 'Atualização:\n' + item['data_hora']
+          folium.Marker(tuple(location), tooltip=tooltip_text, popup=popup_text, icon=folium.Icon(color=color)).add_to(m)
 
     fig = fig.add_child(m)
     map_clean = fig._repr_html_()
