@@ -132,9 +132,13 @@ def plot_map(data):
         place = geodata.get(name)
         if place:
           location = place['location'].values()
+          lat, lon = location
           tooltip_text = name + ' | ' + item.get('tipo_posto')
-          popup_text = 'Atualização:\n' + item['data_hora']
-          folium.Marker(tuple(location), tooltip=tooltip_text, popup=popup_text, icon=folium.Icon(color=color)).add_to(m)
+          maps_url = f'https://www.google.com/maps/dir//{lat},{lon}'
+          maps_link = f'<br><a href="{maps_url}" target="_blank"><b>Ver no Google Maps</b></a>'
+          popup_text = '<b>Última atualização:</b><br>' + item['data_hora'] + maps_link
+          popup = folium.Popup(html=popup_text, parse_html=False, max_width=200)
+          folium.Marker(tuple(location), tooltip=tooltip_text, popup=popup, icon=folium.Icon(color=color)).add_to(m)
 
     fig = fig.add_child(m)
     map_clean = fig._repr_html_()
