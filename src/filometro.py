@@ -129,9 +129,7 @@ def plot_map(data):
 
         name = item.get('equipamento')
         status = item.get('status')
-        color = colors.get(status)
-        if not color
-            color = 'grey'
+        color = colors.get(status) or 'grey'
         place = geodata.get(name)
         if place:
           location = place['location'].values()
