@@ -128,8 +128,8 @@ def plot_map(data):
     for item in data:
 
         name = item.get('equipamento')
-        status = item.get('status')
-        color = colors.get(status) or 'grey'
+        status = item.get('status_fila')
+        color = colors.get(status) or 'gray'
         place = geodata.get(name)
         if place:
           location = place['location'].values()
