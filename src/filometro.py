@@ -1,3 +1,4 @@
+import os
 import json
 import folium
 import requests
@@ -117,7 +118,9 @@ def plot_map(data):
               'NÃO FUNCIONANDO': 'purple',
               'AGUARDANDO ABASTECIMENTO': 'gray'}
 
-    geodata_path = '../data/geodata.json'
+    cwd = os.path.dirname(__file__)
+    geodata_filename = '../data/geodata.json'
+    geodata_path = os.path.join(cwd, geodata_filename)
     with open(geodata_path) as f:
         geodata = json.load(f)
 

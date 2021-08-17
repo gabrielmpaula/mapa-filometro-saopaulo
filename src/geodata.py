@@ -34,7 +34,11 @@ def get_geodata():
         geodata.append(item_dict)
 
     place_geo = {i['name']: i['geometry'] for i in geodata}
-    with open('../data/geodata.json', 'w+') as f:
+
+    cwd = os.path.dirname(__file__)
+    geodata_filename = '../data/geodata.json'
+    geodata_path = os.path.join(cwd, geodata_filename)
+    with open(geodata_path, 'w+') as f:
         json.dump(place_geo, f, indent=4)
 
 
