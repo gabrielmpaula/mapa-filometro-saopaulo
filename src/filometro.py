@@ -111,6 +111,7 @@ def add_categorical_legend(folium_map, title, colors, labels):
 
 def plot_map(data):
 
+    brand_list = ['coronavac', 'astrazeneca', 'pfizer']
     colors = {'SEM FILA': 'darkgreen',
               'FILA PEQUENA': 'beige',
               'FILA MÉDIA': 'orange',
@@ -134,15 +135,25 @@ def plot_map(data):
         status = item.get('status_fila')
         color = colors.get(status) or 'gray'
         place = geodata.get(name)
+
         if place:
-          location = place['location'].values()
-          lat, lon = location
-          tooltip_text = name + ' | ' + item.get('tipo_posto')
-          maps_url = f'https://www.google.com/maps/dir//{lat},{lon}'
-          maps_link = f'<br><a href="{maps_url}" target="_blank"><b>Ver no Google Maps</b></a>'
-          popup_text = '<b>Última atualização:</b><br>' + item['data_hora'] + maps_link
-          popup = folium.Popup(html=popup_text, parse_html=False, max_width=200)
-          folium.Marker(tuple(location), tooltip=tooltip_text, popup=popup, icon=folium.Icon(color=color)).add_to(m)
+            availablity = []
+            location = place['location'].values()
+            lat, lon = location
+            tooltip_text = name + ' | ' + item.get('tipo_posto')
+            maps_url = f'https://www.google.com/maps/dir//{lat},{lon}'
+
+            for brand in brand_list:
+                if item[brand] == '1':
+                    availablity += [f'<br>{brand.title()}: <span style="color:Green";>Sim</span>']
+                if item[brand] == '0':
+                    availablity += [f'<br>{brand.title()}: <span style="color:Red";>Não</span>']
+
+            brands = f'<br>{"".join(availablity)}<br>'
+            maps_link = f'<br><a href="{maps_url}" target="_blank"><b>Ver no Google Maps</b></a>'
+            popup_text = '<b>Última atualização:</b><br>' + item['data_hora'] + brands + maps_link
+            popup = folium.Popup(html=popup_text, parse_html=False, max_width=200)
+            folium.Marker(tuple(location), tooltip=tooltip_text, popup=popup, icon=folium.Icon(color=color)).add_to(m)
 
     fig = fig.add_child(m)
     map_clean = fig._repr_html_()
