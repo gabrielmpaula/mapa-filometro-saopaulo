@@ -149,7 +149,7 @@ def plot_map(data):
                 if item[brand] == '0':
                     availablity += [f'<br>{brand.title()}: <span style="color:Red";>Não</span>']
 
-            brands = f'<br>{"".join(availablity)}<br>'
+            brands = f'<br><br><b>Imunizantes 2ª dose</b>:{"".join(availablity)}<br>'
             maps_link = f'<br><a href="{maps_url}" target="_blank"><b>Ver no Google Maps</b></a>'
             popup_text = '<b>Última atualização:</b><br>' + item['data_hora'] + brands + maps_link
             popup = folium.Popup(html=popup_text, parse_html=False, max_width=200)
